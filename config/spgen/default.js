@@ -6,11 +6,11 @@ var path = require('path');
 module.exports = {
     "sequelize-pg-generator": {
         "database": {
-            "host": "127.0.0.1",
+            "host": "159.89.191.156",
             "port": 5432,
-            "user": "user",
-            "password": "password",
-            "database": "",
+            "user": "postgres",
+            "password": "nodejs2018",
+            "database": "nodejs",
             "schema": ["public"]
         },
         "template": {
