@@ -1,9 +1,9 @@
-PORT=8081
+PORT=8085
 TOKEN_SECRET=developmentSessionSecret
 DB_USER=postgres
 DB_PASS=nodejs2018
 DATA_BASE=nodejs
 DB_DIALECT=postgres
-DB_PORT=5432
+DB_PORT=5430
 DB_SCHEMA=public
 DB_SERVER=159.89.191.156

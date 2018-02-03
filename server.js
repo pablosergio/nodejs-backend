@@ -20,10 +20,14 @@ var cors = require('cors');
 var expressValidator = require('express-validator');
 var expressWinston = require('express-winston');
 var winston = require('winston');
-var cfg = require("config")
+var cfg = require("config");
+var morgan = require('morgan');
+var errorhandler = require('errorhandler');
+var compression = require('compression');
+
 dotenv = require('dotenv');
 
-var port = process.env.PORT || 8081;        // set our port
+var port = process.env.PORT || 8083;        // set our port
 var router = express.Router();              // get an instance of the express Router
 
 // middleware to use for all requests
@@ -38,9 +42,9 @@ router.get('/', function(req, res) {
     res.json({ message: 'Welcome to node js rest service!' });
 });
 
-/* cambiar el path cuando se necesite pasar a produccion */
+/* los parametros de configuracion seran leidos desde el archivo correspondiente al enviorment */
 dotenv.config({
-    path: './config/env/.development'
+    path: './config/env/.' + app.settings.env
 });
 
 dotenv.load();
@@ -89,9 +93,9 @@ function start() {
         app.use(morgan('dev'));
         app.use(errorhandler());
     }else if(process.env.NODE_ENV === 'production'){
-        app.use(compress());
+        app.use(compression());
     }
-
+    var port = process.env.PORT || 8083;        // set our port
     app.listen(port, function () {  // Starts server with our modfied port settings
         console.log("Express server listening on port %d in %s mode", port, app.settings.env);
     });
