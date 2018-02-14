@@ -7,7 +7,6 @@ var plan = require('flightplan');
 plan.target('production', {
     host: '159.89.191.156',
     username: 'nodejs',
-    password: 'Revelacion4:11',
     agent: process.env.SSH_AUTH_SOCK,
 
     webRoot: '/var/www/backend-nodejs',
@@ -58,6 +57,9 @@ plan.remote('deploy', function(remote) {
         remote.sudo('chown -R ' + remote.runtime.ownerUser + ':' + remote.runtime.ownerUser + ' ' + versionFolder);
         remote.sudo('ln -fsn ' + versionFolder + ' current');
         remote.sudo('chown -R ' + remote.runtime.ownerUser + ':' + remote.runtime.ownerUser + ' current');
+
+        remote.log('Reload application');
+        remote.sudo('NODE_ENV=production pm2 reload index'); // pm2 is awesome!
 
         if (remote.runtime.maxDeploys > 0) {
             remote.log('Cleaning up old deploys...');
