@@ -60,7 +60,7 @@ plan.remote('deploy', function(remote) {
         remote.sudo('chown -R ' + remote.runtime.ownerUser + ':' + remote.runtime.ownerUser + ' current');
 
         remote.log('Reload application');
-        remote.sudo('pm2 reload index'); // pm2 is awesome!
+        remote.sudo('pm2 reload node-app'); // pm2 is awesome!
 
         if (remote.runtime.maxDeploys > 0) {
             remote.log('Cleaning up old deploys...');
