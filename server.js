@@ -39,7 +39,7 @@ router.use(function (req, res, next) {
 
 // test route to make sure everything is working (accessed at GET http://localhost:8081/api)
 router.get('/', function(req, res) {
-    res.json({ message: 'Welcome to nodejs-backend REST service!' });
+    res.json({ message: 'Welcome to nodejs backend REST service!' });
 });
 
 /* los parametros de configuracion seran leidos desde el archivo correspondiente al enviorment */
