@@ -48,7 +48,7 @@ plan.remote('deploy', function(remote) {
         //remote.exec('npm --production install');
 
         //remote.log('Install dependencies');
-        //remote.sudo('npm --production --prefix ' + remote.runtime.webRoot + '/repo  install ' + remote.runtime.webRoot + '/repo', {user: remote.runtime.username});
+        remote.sudo('npm --production --prefix ' + remote.runtime.webRoot + '/repo  install ' + remote.runtime.webRoot + '/repo', {user: remote.runtime.username});
 
         var command = remote.exec('date +%s.%N');
         var versionId = command.stdout.trim();
@@ -58,6 +58,9 @@ plan.remote('deploy', function(remote) {
         remote.sudo('chown -R ' + remote.runtime.ownerUser + ':' + remote.runtime.ownerUser + ' ' + versionFolder);
         remote.sudo('ln -fsn ' + versionFolder + ' current');
         remote.sudo('chown -R ' + remote.runtime.ownerUser + ':' + remote.runtime.ownerUser + ' current');
+
+        remote.log('Reload application');
+        remote.exec('NODE_ENV=production pm2 reload index'); // pm2 is awesome!
 
         if (remote.runtime.maxDeploys > 0) {
             remote.log('Cleaning up old deploys...');
