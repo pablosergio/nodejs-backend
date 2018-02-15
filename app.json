@@ -1,0 +1,8 @@
+{
+  "name"   : "node-app",
+  "cwd"    : "/var/www/backend-nodejs/current",
+  "script" : "index.js",
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
