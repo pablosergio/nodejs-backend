@@ -7,6 +7,7 @@ var plan = require('flightplan');
 plan.target('production', {
     host: '159.89.191.156',
     username: 'nodejs',
+    password: 'Revelacion4:11',
     agent: process.env.SSH_AUTH_SOCK,
 
     webRoot: '/var/www/backend-nodejs',
@@ -47,7 +48,7 @@ plan.remote('deploy', function(remote) {
         //remote.exec('npm --production install');
 
         //remote.log('Install dependencies');
-        //remote.sudo('npm --production --prefix ' + remote.runtime.webRoot + '/repo  install ' + remote.runtime.webRoot + '/repo', {user: remote.runtime.username});
+        remote.sudo('npm --production --prefix ' + remote.runtime.webRoot + '/repo  install ' + remote.runtime.webRoot + '/repo', {user: remote.runtime.username});
 
         var command = remote.exec('date +%s.%N');
         var versionId = command.stdout.trim();
@@ -59,7 +60,7 @@ plan.remote('deploy', function(remote) {
         remote.sudo('chown -R ' + remote.runtime.ownerUser + ':' + remote.runtime.ownerUser + ' current');
 
         remote.log('Reload application');
-        remote.sudo('NODE_ENV=production pm2 reload index'); // pm2 is awesome!
+        remote.exec('NODE_ENV=production pm2 reload index'); // pm2 is awesome!
 
         if (remote.runtime.maxDeploys > 0) {
             remote.log('Cleaning up old deploys...');
